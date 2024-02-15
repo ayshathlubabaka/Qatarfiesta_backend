@@ -85,7 +85,6 @@ social-auth-core
 sqlparse
 stripe
 Twisted
-twisted-iocpsupport
 txaio
 typing_extensions
 tzdata
