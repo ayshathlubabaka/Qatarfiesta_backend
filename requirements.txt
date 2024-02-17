@@ -93,5 +93,6 @@ urllib3
 vine
 wcwidth
 websockets
+whitenoise
 wrapt
 zope.interface
