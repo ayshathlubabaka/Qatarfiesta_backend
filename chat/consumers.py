@@ -5,7 +5,7 @@ from channels.db import database_sync_to_async
 from organizer.models import Events
 from .signals import websocket_connected
 from accounts.models import User
-from asgiref.sync import async_to_sync
+from django.conf import settings
 import json
 
 
@@ -47,7 +47,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         event_id = self.scope["url_route"]["kwargs"]["event_id"]
         organizer_id = await self.get_organizer_id(event_id)
-        await self.send_mail(current_user_id, event_id, organizer_id)
+        # await self.send_mail(current_user_id, event_id, organizer_id)
         await self.create_pending_chat(current_user_id, event_id, organizer_id)
 
     async def disconnect(self, code):
@@ -109,7 +109,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         user = User.objects.get(id=current_user_id)
         event = Events.objects.get(id=event_id)
         organizer = User.objects.get(id=organizer_id)
-        chat_url = f"http://localhost:3000/organizer/chat/{current_user_id}/{event_id}"
+        site_url = settings.SITE_URL
+        chat_url = f"{site_url}organizer/chat/{current_user_id}/{event_id}"
         PendingChat.objects.create(
             reciever=organizer, chat_url=chat_url, user=user, event=event
         )
