@@ -17,14 +17,14 @@ class EventAPI(APIView):
         events = Events.objects.all().order_by('-id')
         serializer = EventSerializer(events, many=True)
         data=serializer.data
-        for event_data in data:
-            event_id = event_data['id']
-            try:
-                event = Events.objects.get(id=event_id)
-                image = event.image
-                event_data['image'] = request.build_absolute_uri('/')[:-1] + image.url
-            except Events.DoesNotExist:
-                event_data['image'] = '' 
+        # for event_data in data:
+        #     event_id = event_data['id']
+        #     try:
+        #         event = Events.objects.get(id=event_id)
+        #         image = event.image
+        #         event_data['image'] = request.build_absolute_uri('/')[:-1] + image.url
+        #     except Events.DoesNotExist:
+        #         event_data['image'] = '' 
         return Response(serializer.data)
     
     
@@ -82,14 +82,14 @@ class ActiveEvents(APIView):
         events = Events.objects.filter(is_active=True, endDate__gte=today).order_by('-id')
         serializer = EventSerializer(events, many=True)
         data=serializer.data
-        for event_data in data:
-            event_id = event_data['id']
-            try:
-                event = Events.objects.get(id=event_id)
-                image = event.image
-                event_data['image'] = request.build_absolute_uri('/')[:-1] + image.url
-            except Events.DoesNotExist:
-                event_data['image'] = '' 
+        # for event_data in data:
+        #     event_id = event_data['id']
+        #     try:
+        #         event = Events.objects.get(id=event_id)
+        #         image = event.image
+        #         event_data['image'] = request.build_absolute_uri('/')[:-1] + image.url
+        #     except Events.DoesNotExist:
+        #         event_data['image'] = '' 
         return Response(serializer.data)
     
 class DateFilterAPI(APIView):
