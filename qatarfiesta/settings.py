@@ -18,6 +18,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 from datetime import timedelta
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+
 SECRET_KEY = config("SECRET_KEY")
 DEBUG = True
 
@@ -46,6 +51,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "corsheaders",
+    'cloudinary',
 ]
 
 
@@ -238,3 +244,12 @@ CELERY_TIMEZONE = "UTC"
 CELERY_IMPORTS = ["accounts.tasks"]
 
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+
+
+#Cloudinary 
+
+cloudinary.config(
+    cloud_name="dwatpmidh",
+    api_key="568955193363713",
+    api_secret="R9FJqAEqovSKUTHFG4SzcdxBiII",
+)

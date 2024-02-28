@@ -1,6 +1,7 @@
 from django.db import models
 from accounts.models import User
-from myadmin.models import Category, TicketType, AgeGroup
+from myadmin.models import Category
+from cloudinary.models import CloudinaryField
 
 
 class Events(models.Model):
@@ -19,7 +20,8 @@ class Events(models.Model):
     startTime = models.TimeField()
     endTime = models.TimeField(default=None, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="event_images/", null=True, blank=True)
+    #image = models.ImageField(upload_to="event_images/", null=True, blank=True)
+    image = CloudinaryField('image')
     description = models.CharField(max_length=255)
     ticketPrice = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     ticketQuantity = models.PositiveIntegerField(default=0)
